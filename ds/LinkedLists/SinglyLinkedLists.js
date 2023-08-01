@@ -88,7 +88,9 @@ class LinkedList {
     }
 
     let i = 0;
-    let prev = null;
+    const sentinel = new LinkedListNode(0);
+    sentinel.next = this.head;
+    let prev = sentinel;
     let curr = this.head;
 
     while (i !== index) {
@@ -104,11 +106,8 @@ class LinkedList {
       return;
     }
 
-    if (prev !== null) {
-      prev.next = curr.next;
-      return;
-    }
+    prev.next = curr.next;
 
-    this.head = curr.next;
+    this.head = sentinel.next;
   }
 }
