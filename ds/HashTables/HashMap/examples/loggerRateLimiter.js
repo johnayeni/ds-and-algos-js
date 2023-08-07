@@ -5,26 +5,28 @@
  * bool shouldPrintMessage(int timestamp, string message) Returns true if the message should be printed in the given timestamp, otherwise returns false.
  */
 
-const Logger = function () {
-  this.logs = new Map();
-};
+class Logger {
+  constructor() {
+    this.logs = new Map();
+  }
 
-Logger.prototype.shouldPrintMessage = function (timestamp, message) {
-  const allowedTimestamp = this.logs.get(message);
+  shouldPrintMessage(timestamp, message) {
+    const allowedTimestamp = this.logs.get(message);
 
-  if (allowedTimestamp === undefined) {
+    if (allowedTimestamp === undefined) {
+      this.logs.set(message, timestamp + 10);
+      return true;
+    }
+
+    if (timestamp < allowedTimestamp) {
+      return false;
+    }
+
     this.logs.set(message, timestamp + 10);
+
     return true;
   }
-
-  if (timestamp < allowedTimestamp) {
-    return false;
-  }
-
-  this.logs.set(message, timestamp + 10);
-
-  return true;
-};
+}
 
 /**
  * Your Logger object will be instantiated and called as such:

@@ -1,20 +1,5 @@
 // Given a non-empty array of integers nums, every element appears twice except for one. Find that single one.
 // You must implement a solution with a linear runtime complexity and use only constant extra space.
-function singleNumber1(arr) {
-  const hashSet = new Set();
-  for (let i = 0; i < arr.length; i++) {
-    if (hashSet.has(arr[i])) {
-      hashSet.delete(arr[i]);
-    } else {
-      hashSet.add(arr[i]);
-    }
-  }
-
-  const it = hashSet.values();
-  const first = it.next();
-  return first.value;
-}
-
 function singleNumber(arr) {
   const hashSet = new Set();
   let sumOfSet = 0;

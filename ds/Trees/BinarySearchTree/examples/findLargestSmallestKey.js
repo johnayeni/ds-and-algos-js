@@ -10,76 +10,80 @@
  *********************************************************/
 
 // Constructor to create a new Node
-function Node(key) {
-  this.key = key;
-  this.parent = null;
-  this.left = null;
-  this.right = null;
+class Node {
+  constructor(key) {
+    this.key = key;
+    this.parent = null;
+    this.left = null;
+    this.right = null;
+  }
 }
 
 // Constructor to create a new BST
-function BinarySearchTree() {
-  this.root = null;
-}
+class BinarySearchTree {
+  constructor() {
+    this.root = null;
+  }
 
-BinarySearchTree.prototype.findLargestSmallerKey = function (num) {
-  // your code goes here
-  let max = -1;
+  findLargestSmallerKey(num) {
+    // your code goes here
+    let max = -1;
 
-  if (this.root === null) {
+    if (this.root === null) {
+      return max;
+    }
+
+    let curr = this.root;
+
+    while (curr !== null) {
+      if (num < curr.key) {
+        curr = curr.left;
+      } else {
+        max = curr.key;
+        curr = curr.right;
+      }
+    }
+
     return max;
   }
 
-  let curr = this.root;
+  // Creates a new node by a key and inserts it to the BST
+  insert(key) {
+    const root = this.root;
 
-  while (curr !== null) {
-    if (num < curr.key) {
-      curr = curr.left;
-    } else {
-      max = curr.key;
-      curr = curr.right;
+    // 1. If the tree is empty, create the root
+    if (!root) {
+      this.root = new Node(key);
+      return;
     }
-  }
 
-  return max;
-};
+    // 2) Otherwise, create a node with the key
+    //    and traverse down the tree to find where to
+    //    to insert the new node
+    let currentNode = root;
+    let newNode = new Node(key);
 
-// Creates a new node by a key and inserts it to the BST
-BinarySearchTree.prototype.insert = function (key) {
-  var root = this.root;
-
-  // 1. If the tree is empty, create the root
-  if (!root) {
-    this.root = new Node(key);
-    return;
-  }
-
-  // 2) Otherwise, create a node with the key
-  //    and traverse down the tree to find where to
-  //    to insert the new node
-  var currentNode = root;
-  var newNode = new Node(key);
-
-  while (currentNode !== null) {
-    if (key < currentNode.key) {
-      if (!currentNode.left) {
-        currentNode.left = newNode;
-        newNode.parent = currentNode;
-        break;
+    while (currentNode !== null) {
+      if (key < currentNode.key) {
+        if (!currentNode.left) {
+          currentNode.left = newNode;
+          newNode.parent = currentNode;
+          break;
+        } else {
+          currentNode = currentNode.left;
+        }
       } else {
-        currentNode = currentNode.left;
-      }
-    } else {
-      if (!currentNode.right) {
-        currentNode.right = newNode;
-        newNode.parent = currentNode;
-        break;
-      } else {
-        currentNode = currentNode.right;
+        if (!currentNode.right) {
+          currentNode.right = newNode;
+          newNode.parent = currentNode;
+          break;
+        } else {
+          currentNode = currentNode.right;
+        }
       }
     }
   }
-};
+}
 
 /*********************************************
  * Driver program to test above function     *
