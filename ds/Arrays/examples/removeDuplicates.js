@@ -10,14 +10,21 @@ const removeDuplicates = function (nums) {
   if (nums.length < 2) {
     return;
   }
-  let p1 = 0;
-  let p2 = 1;
-  while (p2 < nums.length) {
-    if (nums[p1] !== nums[p2]) {
-      p1 += 1;
-      p2 += 1;
-    } else {
-      nums.splice(p2, 1);
+  let lastNonDuplicateIndex = 0;
+  for (let i = 1; i < nums.length; i++) {
+    while (nums[i] === nums[lastNonDuplicateIndex] && i < nums.length) {
+      i += 1;
     }
+
+    if (i === nums.length) {
+      break;
+    }
+
+    nums[lastNonDuplicateIndex + 1] = nums[i];
+    lastNonDuplicateIndex += 1;
+  }
+
+  while (nums.length > lastNonDuplicateIndex + 1) {
+    nums.pop();
   }
 };

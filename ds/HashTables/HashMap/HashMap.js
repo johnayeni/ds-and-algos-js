@@ -35,10 +35,7 @@ class HashMap {
   remove(key) {
     const hash = this.hash(key);
     if (this.buckets[hash]) {
-      const index = this.buckets[hash].findIndex(([k]) => k === key);
-      if (index > -1) {
-        this.buckets[hash].splice(index, 1);
-      }
+      this.buckets[hash] = this.buckets[hash].filter(([k]) => k != key);
     }
   }
 }

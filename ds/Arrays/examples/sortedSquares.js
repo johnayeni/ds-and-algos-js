@@ -7,16 +7,16 @@
  * @return {number[]}
  */
 const sortedSquares = function (nums) {
-  const squares = [];
+  const squares = new Array(nums.length);
   let left = 0;
   let right = nums.length - 1;
 
-  while (left <= right) {
+  for (let i = nums.length - 1; i >= 0; i--) {
     if (Math.abs(nums[left]) > Math.abs(nums[right])) {
-      squares.unshift(Math.pow(nums[left], 2));
+      squares[i] = Math.pow(nums[left], 2);
       left += 1;
     } else {
-      squares.unshift(Math.pow(nums[right], 2));
+      squares[i] = Math.pow(nums[right], 2);
       right -= 1;
     }
   }
